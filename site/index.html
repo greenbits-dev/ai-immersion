@@ -1,0 +1,421 @@
+<title>AI Immersion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#F5F0EB; --card:#FBF8F4; --ink:#221D16; --muted:#6E6459;
+    --line:#E2D9CE; --accent:#3F4A38; --accent-ink:#F5F0EB;
+    --serif:"Fraunces", Georgia, serif;
+    --sans:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono:"Spline Sans Mono", "SF Mono", Menlo, monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--sans); font-size:1.0325rem; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+
+  .wrap{display:grid; grid-template-columns:230px minmax(0,1fr); max-width:1080px; margin:0 auto; padding:0 24px; gap:56px}
+  nav{position:sticky; top:0; align-self:start; height:100vh; padding:56px 0 32px; display:flex; flex-direction:column}
+  .navtitle{font-family:var(--serif); font-weight:600; font-size:1.05rem; letter-spacing:.01em; margin:0 0 4px}
+  .navsub{font-size:.78rem; color:var(--muted); margin:0 0 28px}
+  nav ol{list-style:none; margin:0; padding:0; border-left:1px solid var(--line)}
+  nav li a{
+    display:flex; gap:10px; align-items:baseline; padding:7px 0 7px 16px; margin-left:-1px;
+    border-left:1px solid transparent; color:var(--muted); text-decoration:none; font-size:.87rem;
+  }
+  nav li a .n{font-family:var(--mono); font-size:.72rem; opacity:.7}
+  nav li a:hover{color:var(--ink)}
+  nav li a.on{color:var(--ink); border-left-color:var(--accent)}
+  .navfoot{margin-top:auto; font-size:.75rem; color:var(--muted); line-height:1.5}
+  .navfoot a{color:var(--muted)}
+
+  main{padding:0 0 96px; min-width:0}
+  header.hero{padding:88px 0 26px; border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin:0 0 18px}
+  h1{font-family:var(--serif); font-weight:500; font-size:clamp(2.6rem,6vw,3.9rem); line-height:1.04; margin:0 0 20px; text-wrap:balance; letter-spacing:-.01em}
+  .lede{font-size:1.16rem; max-width:34em; color:var(--ink); margin:0 0 8px}
+  .lede em{font-style:normal; border-bottom:2px solid var(--accent)}
+  .heronote{color:var(--muted); font-size:.92rem; max-width:38em}
+
+  section{padding:64px 0 8px}
+  h2{font-family:var(--serif); font-weight:500; font-size:1.9rem; line-height:1.15; margin:0 0 6px; text-wrap:balance}
+  .kicker{font-family:var(--mono); font-size:.74rem; color:var(--accent); letter-spacing:.08em; margin:0 0 14px}
+  h3{font-family:var(--serif); font-weight:600; font-size:1.18rem; margin:2.2em 0 .5em}
+  p{max-width:66ch}
+  .sub{color:var(--muted); max-width:60ch; margin-top:0}
+
+  table{border-collapse:collapse; width:100%; font-size:.92rem}
+  .scroller{overflow-x:auto; margin:28px 0}
+  th{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:600; text-align:left; padding:0 16px 10px 0; border-bottom:1px solid var(--ink)}
+  td{padding:12px 16px 12px 0; border-bottom:1px solid var(--line); vertical-align:top}
+  td:first-child{font-family:var(--mono); font-size:.8rem; white-space:nowrap; color:var(--muted)}
+  tr.you td{background:var(--accent); color:var(--accent-ink); padding-left:12px}
+  tr.you td:first-child{color:var(--accent-ink); border-radius:3px 0 0 3px}
+  tr.you td:last-child{border-radius:0 3px 3px 0}
+  tr.you td a{color:var(--accent-ink)}
+
+  .layers{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:30px 0 8px}
+  .layer{background:var(--card); border:1px solid var(--line); padding:22px 20px 18px; display:flex; flex-direction:column; gap:8px}
+  .layer .n{font-family:var(--mono); font-size:.72rem; color:var(--accent)}
+  .layer h3{margin:0; font-size:1.12rem}
+  .layer p{font-size:.89rem; margin:0; color:var(--ink)}
+  .layer .lim{font-size:.82rem; color:var(--muted); margin-top:auto; padding-top:10px; border-top:1px dashed var(--line)}
+  .layer.hot{border-color:var(--accent); box-shadow:inset 0 3px 0 var(--accent)}
+
+  .concept{border-top:1px solid var(--line); padding:22px 0 18px; max-width:70ch}
+  .concept h3{margin:0 0 6px; display:flex; gap:14px; align-items:baseline}
+  .concept h3 .n{font-family:var(--mono); font-weight:400; font-size:.78rem; color:var(--accent)}
+  .concept p{margin:.4em 0; font-size:.96rem}
+  .ana{background:var(--card); border-left:3px solid var(--accent); padding:10px 16px; font-size:.9rem; margin:.7em 0; max-width:62ch}
+  .ana b{font-weight:600}
+  .rule{font-weight:600}
+
+  .loop{display:flex; align-items:center; gap:0; margin:34px 0 10px; flex-wrap:wrap}
+  .loop .step{font-family:var(--mono); font-size:.86rem; letter-spacing:.06em; background:var(--card); border:1px solid var(--ink); padding:10px 16px}
+  .loop .step.hot{background:var(--accent); color:var(--accent-ink); border-color:var(--accent)}
+  .loop .arr{font-family:var(--mono); color:var(--muted); padding:0 10px}
+  .loopback{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin:6px 0 28px}
+
+  ol.big{counter-reset:s; list-style:none; margin:28px 0; padding:0; max-width:70ch}
+  ol.big>li{counter-increment:s; border-top:1px solid var(--line); padding:20px 0 16px 58px; position:relative}
+  ol.big>li::before{
+    content:counter(s,decimal-leading-zero); position:absolute; left:0; top:22px;
+    font-family:var(--mono); font-size:.86rem; color:var(--accent);
+  }
+  ol.big b{font-weight:600; display:block; margin-bottom:4px; font-family:var(--serif); font-size:1.05rem}
+  ol.big p{margin:.3em 0; font-size:.95rem}
+
+  code{font-family:var(--mono); font-size:.85em; background:var(--card); border:1px solid var(--line); padding:.1em .4em; border-radius:3px}
+  pre{background:var(--ink); color:var(--ground); padding:16px 20px; overflow-x:auto; font-size:.86rem; line-height:1.7; margin:18px 0; max-width:66ch}
+  pre code{background:none; border:none; padding:0; color:inherit}
+
+  dl{display:grid; grid-template-columns:max-content 1fr; gap:8px 26px; margin:28px 0; font-size:.92rem; max-width:70ch}
+  dt{font-family:var(--mono); font-size:.82rem; padding-top:2px; white-space:nowrap}
+  dd{margin:0; color:var(--ink)}
+
+  .cta{background:var(--accent); color:var(--accent-ink); padding:34px 34px 30px; margin:70px 0 0}
+  .cta h2{color:var(--accent-ink); margin-bottom:10px}
+  .cta p{color:var(--accent-ink); opacity:.92}
+  .cta a{color:var(--accent-ink); font-weight:600}
+  .cta code{background:rgba(245,240,235,.14); border-color:transparent; color:var(--accent-ink)}
+
+  @media(max-width:820px){
+    .wrap{grid-template-columns:1fr; gap:0}
+    nav{position:static; height:auto; padding:40px 0 0}
+    nav ol{display:flex; flex-wrap:wrap; gap:2px 18px; border-left:none}
+    nav li a{border-left:none; padding:4px 0}
+    nav li a.on{border-left:none}
+    .navfoot{display:none}
+    header.hero{padding-top:36px}
+    .layers{grid-template-columns:1fr}
+  }
+</style>
+
+<div class="wrap">
+<nav aria-label="Lessons">
+  <p class="navtitle">AI Immersion</p>
+  <p class="navsub">Five sessions, chat&nbsp;→&nbsp;builder</p>
+  <ol>
+    <li><a href="#big-picture"><span class="n">01</span>The big picture</a></li>
+    <li><a href="#concepts"><span class="n">02</span>Key concepts</a></li>
+    <li><a href="#setup"><span class="n">03</span>Setup</a></li>
+    <li><a href="#workflow"><span class="n">04</span>The workflow</a></li>
+    <li><a href="#principles"><span class="n">05</span>Principles</a></li>
+    <li><a href="#project"><span class="n">06</span>First project</a></li>
+    <li><a href="#references"><span class="n">07</span>References</a></li>
+    <li><a href="#glossary"><span class="n">08</span>Glossary</a></li>
+  </ol>
+  <p class="navfoot">Course repo:<br><a href="https://github.com/greenbits-dev/ai-immersion">github.com/greenbits-dev/<wbr>ai-immersion</a></p>
+</nav>
+
+<main>
+<header class="hero">
+  <p class="eyebrow">A hands-on course · no coding experience needed</p>
+  <h1>From chatting with AI to building with it.</h1>
+  <p class="lede">Most people ask AI questions. A much smaller group has learned to <em>build with it</em> — websites, tools, automations. This course walks you across that gap in five sessions, ending with your own site live on the internet.</p>
+  <p class="heronote">You need a laptop, curiosity, and willingness to break things. Lesson one explains why breaking things here is safe.</p>
+  <div class="scroller"><table>
+    <tr><th>Session</th><th>Topic</th><th>You leave with</th></tr>
+    <tr><td>1</td><td>The big picture + key concepts</td><td>A mental model of how this all works</td></tr>
+    <tr><td>2</td><td>Setup: your workshop</td><td>VS&nbsp;Code + GitHub + Claude&nbsp;Code installed and working</td></tr>
+    <tr><td>3</td><td>The workflow + principles</td><td>Your first plan&nbsp;→&nbsp;build&nbsp;→&nbsp;verify cycle</td></tr>
+    <tr><td>4</td><td>First project</td><td>Your own website, live on the internet</td></tr>
+    <tr><td>5</td><td>Leveling up</td><td>Skills, agents, automations — what to explore next</td></tr>
+  </table></div>
+</header>
+
+<section id="big-picture">
+  <p class="kicker">Lesson 01</p>
+  <h2>The big picture</h2>
+  <p class="sub">Three ways to work with Claude. Same brain, three different bodies.</p>
+
+  <div class="layers">
+    <div class="layer">
+      <span class="n">LAYER 1</span>
+      <h3>Claude chat</h3>
+      <p>A conversation in the browser. You ask, it answers — it can search, read uploads, write documents. For thinking, writing, learning.</p>
+      <p class="lim">Limit: everything disappears when the chat ends. It can't touch your computer.</p>
+    </div>
+    <div class="layer">
+      <span class="n">LAYER 2</span>
+      <h3>Cowork</h3>
+      <p>Claude works on a folder of your files: reads documents, organizes them, produces new ones — no copy-pasting.</p>
+      <p class="lim">Limit: it works on files, not systems. It doesn't build software or publish anything.</p>
+    </div>
+    <div class="layer hot">
+      <span class="n">LAYER 3 · THIS COURSE</span>
+      <h3>Claude Code</h3>
+      <p>Claude gets hands. It runs in your terminal inside a project, reads and writes files, runs programs, uses git, deploys to the internet.</p>
+      <p class="lim">Limit: with hands comes responsibility — most of this course is about steering it safely.</p>
+    </div>
+  </div>
+
+  <h3>The AI competence ladder</h3>
+  <p>AI skill isn't one thing you have or don't — it's a ladder, and almost everyone is on the bottom rungs. Rough shares of professionals today:</p>
+  <div class="scroller"><table>
+    <tr><th>Level</th><th>Name</th><th>One line</th><th>~Share</th></tr>
+    <tr><td>0</td><td>Unaware</td><td>Still doing everything manually; hasn't really tried AI</td><td>10–20%</td></tr>
+    <tr><td>1</td><td>Aware</td><td>Has tried ChatGPT or Claude; occasional, not part of how they work</td><td>15–25%</td></tr>
+    <tr><td>2</td><td>Assisted worker</td><td>Uses AI daily to draft, summarize, think; real hours saved weekly</td><td>25–35%</td></tr>
+    <tr class="you"><td>3</td><td>Enabled professional</td><td><strong>You, after this course.</strong> AI embedded in how you work; delegates multi-step tasks; builds real things with Claude&nbsp;Code</td><td>12–20%</td></tr>
+    <tr><td>4</td><td>Workflow integrator</td><td>Connects AI to real systems; ships working products to the internet</td><td>6–12%</td></tr>
+    <tr><td>5</td><td>System builder</td><td>Designs systems of coordinated AI agents with checkpoints</td><td>2–5%</td></tr>
+    <tr><td>6–9</td><td>Architect → frontier</td><td>Production platforms, AI products with real users, defining how the field works</td><td>&lt;2%</td></tr>
+  </table></div>
+  <p>Three things to take from this: <strong>you are probably at 0–2, and so is almost everyone</strong> — the ladder is young. This course targets Level 3 with a real glimpse of 4 (a deployed product), which already puts you ahead of roughly 80% of professionals. And the floor keeps rising: what needed a senior engineer in 2024 is a Level-3 skill with today's tools. One level per year is a realistic pace — and each level compounds, because the systems you build keep working for you.</p>
+  <p class="sub">The level is a diagnosis, not a badge. Re-read the table after session 4 and place yourself again.</p>
+</section>
+
+<section id="concepts">
+  <p class="kicker">Lesson 02</p>
+  <h2>Key concepts</h2>
+  <p class="sub">A dozen words that make everything else make sense. The analogies are imperfect but load-bearing.</p>
+
+  <div class="concept"><h3><span class="n">1</span>LLM / model</h3>
+    <p>The "brain": a program trained on enormous amounts of text that predicts what comes next — which turns out to be enough to converse, write, and code. Bigger models (Opus-class) are smartest and priciest; mid models (Sonnet-class) are the daily driver; small ones (Haiku-class) are fast and cheap.</p>
+    <div class="ana"><b>Analogy:</b> hiring. Sometimes the senior architect, usually the solid contractor, apprentices for repetitive work.</div>
+    <p class="rule">Key point: the model has no memory between conversations. Everything it "knows about you" must be given to it every time — which is why the next two concepts matter most.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">2</span>Tokens</h3>
+    <p>The units the model reads and writes — roughly word-fragments (~¾ of a word). Every AI service bills by tokens in + tokens out, like a utility bills by kWh. Tokens are the cost meter <em>and</em> the memory meter.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">3</span>Context window — and the "dumb zone"</h3>
+    <p>The model's working memory: everything it can see right now — instructions, the conversation, files it has read. Large but finite. The trap: performance doesn't fall off a cliff when it fills; it <em>degrades gradually</em>. Matt Pocock calls the last stretch the <strong>dumb zone</strong> — the conversation still works, but the model starts forgetting instructions and making sloppy mistakes.</p>
+    <div class="ana"><b>Analogy:</b> a workbench. Big, but buried under every tool of the day, work gets sloppy. The fix isn't a bigger bench — it's clearing it.</div>
+    <p class="rule">Memorize this rule: short, focused sessions. Task done → start fresh. Never push "one more thing" deep into the dumb zone.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">4</span>Prompt &amp; system prompt</h3>
+    <p>A prompt is what you type. A system prompt is the standing instructions the model receives first — its job description. Good prompting for beginners is mostly: say what you want, what "done" looks like, and what to avoid — like briefing a very fast, very literal new hire.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">5</span>Repo</h3>
+    <p>A project folder with a memory: your files plus the full history of every change ever made (kept by a tool called <strong>git</strong>). See what changed, when, and roll anything back. <strong>GitHub</strong> is the website where repos live online.</p>
+    <div class="ana"><b>Analogy:</b> a document with unlimited, perfectly organized "track changes" — for a whole folder.</div>
+    <p class="rule">Why it's the killer feature for AI work: the undo button gives you courage. If Claude Code wrecks something, roll back in one command. You will never lose work — so the AI can work boldly.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">6</span>Markdown</h3>
+    <p>Plain text files with simple formatting marks (<code># heading</code>, <code>**bold**</code>, <code>- list</code>). It's text, and models are text machines — your notes, plans, and instructions to Claude are all markdown. The paper of the AI workshop.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">7</span>CLAUDE.md</h3>
+    <p>A markdown file in your repo that Claude Code reads automatically at the start of every session. Whatever you write there — "this project is X", "always do Y", "never touch Z" — becomes standing orders.</p>
+    <div class="ana"><b>Analogy:</b> the laminated instruction sheet taped to the workshop wall. New assistant walks in, reads it, knows the house rules.</div>
+    <p class="rule">The single highest-leverage file you'll ever write. Teaching the file beats repeating yourself every session.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">8</span>Scripts</h3>
+    <p>Small programs that do one job. Claude Code writes them constantly: "a script that renames these photos by date". You don't write scripts — you know to ask for one. Rule of thumb: doing something tedious a third time? Ask for a script.</p>
+  </div>
+
+  <div class="concept"><h3><span class="n">9</span>Agents</h3>
+    <p>An AI that doesn't just answer — it acts in a loop: try, look at the result, adjust, try again, until the goal is met. Claude Code is an agent: ask it to fix a bug and it reads, changes, tests, sees the failure, fixes, reruns.</p>
+    <div class="ana"><b>Analogy:</b> asking for directions (chat) vs hiring a driver (agent).</div>
+  </div>
+
+  <div class="concept"><h3><span class="n">10</span>Skills</h3>
+    <p>Packaged know-how you give Claude Code: a folder of instructions it loads when a matching task appears — "how we write blog posts", "how we deploy". Write once, reuse forever.</p>
+    <div class="ana"><b>Analogy:</b> recipe cards in the workshop drawer. Every lesson you teach the system makes every future session better — the real endgame of this course.</div>
+  </div>
+
+  <div class="concept"><h3><span class="n">11</span>MCPs and APIs</h3>
+    <p><strong>API</strong>: a service's official counter for programs — how software orders things from other software (weather data, email, payments). Usually metered and billed. <strong>MCP</strong>: a standard plug that connects tools to Claude — calendar, Gmail, a database.</p>
+    <div class="ana"><b>Analogy:</b> APIs are the service counters of every business in town; MCP is the universal adapter that lets your assistant walk up to any of them.</div>
+  </div>
+
+  <div class="concept"><h3><span class="n">12</span>Hallucination</h3>
+    <p>Models sometimes state false things with total confidence — plausible names, facts, and numbers that don't exist. Not lying; autocomplete overreaching.</p>
+    <p class="rule">The model is a brilliant drafter and a mediocre witness. Anything that matters gets verified — this shapes the whole workflow below.</p>
+  </div>
+</section>
+
+<section id="setup">
+  <p class="kicker">Lesson 03</p>
+  <h2>Setup: your workshop</h2>
+  <p class="sub">Done together in session 2, step by step. Three pieces, one magic circuit.</p>
+
+  <div class="scroller"><table>
+    <tr><th>Tool</th><th>Role</th><th>Analogy</th></tr>
+    <tr><td>VS Code</td><td>The editor — where you see and edit files; Claude Code runs in a panel inside it</td><td>The workshop: bench, good lighting</td></tr>
+    <tr><td>GitHub</td><td>Online home of your repos: backup, history, sharing</td><td>The warehouse with a ledger of every change</td></tr>
+    <tr><td>Vercel</td><td>Watches your GitHub repo; every change auto-publishes to the live internet</td><td>The delivery service: goods → shelf, automatically</td></tr>
+  </table></div>
+
+  <p><strong>The magic circuit:</strong> edit in VS Code → save to GitHub → Vercel publishes → your change is live in about 60 seconds. No servers to manage; free tiers cover everything in this course.</p>
+
+  <h3>About the terminal</h3>
+  <p>The black window is the honest interface: you type a command, the computer does exactly that. You need about five commands total (<code>cd</code> go to folder, <code>ls</code> list files, <code>claude</code> start Claude Code, <code>git status</code> what changed). Claude Code teaches you the rest — literally ask it "what does this command do?"</p>
+
+  <h3>The checklist</h3>
+  <ol class="big">
+    <li><b>Install VS Code</b><p>code.visualstudio.com → download, install, open once.</p></li>
+    <li><b>Create a GitHub account</b><p>github.com. Free. Your username becomes public and appears in your project URLs — pick one you're happy to show people.</p></li>
+    <li><b>Install git</b><p>Mac: run <code>git --version</code> in Terminal, accept the install popup. Windows: Git for Windows with defaults.</p></li>
+    <li><b>Install Node.js</b><p>nodejs.org, the LTS version. The runtime many tools are built on — installed once, then invisible.</p></li>
+    <li><b>Install Claude Code</b><p><code>npm install -g @anthropic-ai/claude-code</code>, then run <code>claude</code> and log in. First thing to try: "look around this folder and tell me what's here."</p></li>
+    <li><b>Create a Vercel account</b><p>vercel.com → "Sign up with GitHub". Notice what you just did: connected two tools. You'll do this a lot.</p></li>
+    <li><b>Set spending limits — before anything else</b><p>Wherever billing exists, find the usage-limit setting and set it now. Non-negotiable house rule — see Principles, rule 6.</p></li>
+  </ol>
+
+  <h3>When something goes wrong</h3>
+  <p>It will, for at least one of us, and that's fine. The debugging move, itself lesson material: copy the <em>entire</em> error message, paste it to Claude with one line of context ("installing X on a Mac, got this"), do what it says, repeat. You don't need to understand errors — you need to <em>ferry</em> them to something that does.</p>
+</section>
+
+<section id="workflow">
+  <p class="kicker">Lesson 04</p>
+  <h2>The workflow</h2>
+  <p class="sub">The loop you'll run for everything, from a typo to a product.</p>
+
+  <div class="loop" role="img" aria-label="Plan, then prompt, then build, then verify, then deploy — and repeat">
+    <span class="step">PLAN</span><span class="arr">→</span>
+    <span class="step">PROMPT</span><span class="arr">→</span>
+    <span class="step">BUILD</span><span class="arr">→</span>
+    <span class="step hot">VERIFY</span><span class="arr">→</span>
+    <span class="step">DEPLOY</span>
+  </div>
+  <p class="loopback">↺ learn &amp; repeat — the loop is fractal: five minutes for a typo, a week of loops for a project</p>
+
+  <ol class="big">
+    <li><b>Plan — before any building</b>
+      <p>"I want X. Ask me questions until you understand, then propose a plan. Don't write anything yet." Claude Code has a plan mode for exactly this. Better: describe your goal messily, then say <em>"turn this into a clear, detailed brief for yourself"</em> — it writes better prompts than beginners do; you just correct the plan. A wrong plan costs a sentence to fix; wrong code costs a session.</p></li>
+    <li><b>Prompt — the brief</b>
+      <p>Approve or edit the plan. Always include what "done" means: "done = the page shows my three projects and looks right on a phone." A brief without a definition of done is a wish.</p></li>
+    <li><b>Build — let it work</b>
+      <p>Claude Code edits files, runs commands, checks its own results. Watch loosely; answer its questions. Nothing is final until you commit.</p></li>
+    <li><b>Verify — never skip</b>
+      <p>Do not trust, check. Open the result, click every button, read the text out loud. Report what you <em>observed</em>: "the menu overlaps the logo on my phone" gets fixed in one round; "it's broken" gets guesses.</p></li>
+    <li><b>Deploy — ship it</b>
+      <p>Commit (a saved checkpoint), push to GitHub, Vercel publishes. Then start a <em>fresh session</em> for the next task — remember the dumb zone. Done → commit → new session is the rhythm.</p></li>
+  </ol>
+</section>
+
+<section id="principles">
+  <p class="kicker">Lesson 05</p>
+  <h2>Principles</h2>
+  <p class="sub">Hard-won rules — every one was paid for with a real mistake. Half of this only clicks after your first project; re-read it then.</p>
+
+  <ol class="big">
+    <li><b>Short sessions, fresh starts</b><p>One task, one session. Done = commit = new session. Long meandering sessions end in the dumb zone, and the dumb zone ends in mess.</p></li>
+    <li><b>Log everything</b><p>Keep a running <code>log.md</code> in every project: date, what was done, what's next. Every future session — yours and Claude's — starts from the log instead of from zero. The habit that compounds most.</p></li>
+    <li><b>Mistakes are architecture problems, not AI problems</b><p>When Claude keeps getting something wrong, the cause is usually upstream: messy folder, missing CLAUDE.md rule, ambiguous plan. Don't scold the model — fix the setup.</p></li>
+    <li><b>Do not trust — verify</b><p>Confident and correct are different things. Check claims, open outputs, run the thing. Trust grows per-task-type as verification keeps passing; it's never granted globally.</p></li>
+    <li><b>Ask until you understand</b><p>When Claude does something you don't follow, ask it to explain — a patient teacher with infinite time. Never accept magic.</p></li>
+    <li><b>Caps on everything, day one</b><p>Spending limits on every account and API before first use. A cap turns "catastrophe" into "hm, hit my limit." Adding a paid API later: look up the official price, multiply by your request count, check the number before running anything in bulk.</p></li>
+    <li><b>Plan first; let Claude write the brief</b><p>Messy idea → "write me a clear prompt for this" → correct the plan. The single biggest quality lever a beginner has.</p></li>
+    <li><b>Context is the real skill</b><p>You're not writing clever prompts; you're deciding what the model gets to see. A mediocre prompt with the right context beats a brilliant prompt with the wrong one.</p></li>
+    <li><b>Teach the system, not just yourself</b><p>Corrected Claude twice on the same thing? Put it in CLAUDE.md. Explained a workflow twice? Make it a skill. Captured lessons compound like interest.</p></li>
+    <li><b>Close the loop</b><p>The endgame: define "done" so clearly that Claude can check its own work and retry until it passes. Experts stop writing prompts and start designing loops. Plant the flag now; grow into it.</p></li>
+    <li><b>Finish things</b><p>No half-features. A small finished project teaches more than three abandoned ambitious ones.</p></li>
+  </ol>
+  <p class="sub">The three you'll break first (everyone does): #1, #4, #11. Breaking them once and understanding why the rule exists — that's the lesson working.</p>
+</section>
+
+<section id="project">
+  <p class="kicker">Lesson 06</p>
+  <h2>Your first project: a personal site, live on the internet</h2>
+  <p class="sub">Session 4, done together. Not a toy: it runs the entire stack and the entire workflow, and ends with a URL you can send to anyone.</p>
+
+  <ol class="big">
+    <li><b>Decide the content — no computer</b><p>Your name, one sentence about who you are, 2–4 things you want to show. A site with real content teaches; "Lorem ipsum" doesn't.</p></li>
+    <li><b>Create the repo</b><p>On GitHub: New → name it <code>mysite</code> → Public → add a README → Create. Then in the terminal: <code>git clone https://github.com/YOU/mysite.git</code></p></li>
+    <li><b>Open the workshop</b><p>Open the folder in VS Code, start <code>claude</code> in its terminal.</p></li>
+    <li><b>Plan</b><p>"I want a simple one-page personal site about me. I'm a complete beginner. Ask me questions until you understand, then propose a plan. Don't build anything yet." Read the plan; correct it — this is the cheap moment to change your mind.</p></li>
+    <li><b>Standing instructions</b><p>"Before you build: write a CLAUDE.md for this project — what the site is, that I'm a beginner, and that you should explain as you go." Your first CLAUDE.md; every project gets one.</p></li>
+    <li><b>Build</b><p>"Build the plan." Watch the loop happen. It ends by telling you how to see the site locally.</p></li>
+    <li><b>Verify</b><p>Look at it like a stranger: read every word aloud, make the window phone-narrow, click everything. Two or three rounds of concrete change requests is exactly how this is supposed to feel.</p></li>
+    <li><b>Deploy</b><p>"Commit everything with a clear message and push." Then on Vercel: Add New → Project → pick your repo → Deploy. One minute later: open the URL on your <em>phone</em>. It's really on the internet.</p></li>
+    <li><b>The moment it clicks</b><p>Change one word. Commit, push, watch your phone refresh. Edit → live in 60 seconds, and you never touched a server. This loop is what you now own.</p></li>
+  </ol>
+  <p>After: one improvement per week, each a full plan→deploy loop. Small, finished, shipped.</p>
+</section>
+
+<section id="references">
+  <p class="kicker">Lesson 07</p>
+  <h2>References</h2>
+  <p class="sub">A deliberately short list. Five good sources beat fifty bookmarks.</p>
+
+  <h3>People</h3>
+  <dl>
+    <dt>Karpathy</dt><dd><strong>Andrej Karpathy</strong> — the best explainer of what LLMs actually are. Watch "Intro to Large Language Models" (~1h) first; "Software 3.0" explains why this course exists.</dd>
+    <dt>Pocock</dt><dd><strong>Matt Pocock</strong> (aihero.dev) — practical AI-assisted development; source of the "dumb zone".</dd>
+    <dt>Willison</dt><dd><strong>Simon Willison</strong> (simonwillison.net) — the most grounded running commentary on what these tools can and can't do. No hype.</dd>
+    <dt>Anthropic</dt><dd><strong>Anthropic engineering blog</strong> — "Claude Code: Best practices for agentic coding" once you're up and running; the Claude Code docs' Getting Started before session 2.</dd>
+  </dl>
+
+  <h3>Keep learning after session 5</h3>
+  <p>Ship weekly — one small finished improvement beats a course binge. Ask Claude itself ("explain MCP like I'm new" beats most blog posts — it can demo the answer). Steal patterns, not code. And re-take the ladder every few months.</p>
+</section>
+
+<section id="glossary">
+  <p class="kicker">Lesson 08</p>
+  <h2>Glossary</h2>
+  <dl>
+    <dt>LLM</dt><dd>the AI brain; predicts text, well enough to reason and code</dd>
+    <dt>token</dt><dd>word-fragment; the unit of AI cost and memory</dd>
+    <dt>context window</dt><dd>the model's working memory for this conversation</dd>
+    <dt>dumb zone</dt><dd>the overfull end of the context window where quality quietly degrades</dd>
+    <dt>prompt</dt><dd>your instruction; the system prompt is the standing job description</dd>
+    <dt>repo</dt><dd>a project folder with full change history</dd>
+    <dt>git</dt><dd>the tool that keeps that history; GitHub is where repos live online</dd>
+    <dt>clone</dt><dd>copy a repo from GitHub to your machine</dd>
+    <dt>commit</dt><dd>a saved checkpoint; push sends commits to GitHub</dd>
+    <dt>markdown</dt><dd>plain text with simple formatting; the paper of AI work</dd>
+    <dt>CLAUDE.md</dt><dd>standing instructions Claude Code reads every session</dd>
+    <dt>script</dt><dd>a small program that does one tedious job</dd>
+    <dt>agent</dt><dd>AI that acts in a try-check-adjust loop, not just answers</dd>
+    <dt>skill</dt><dd>packaged, reusable know-how you teach the system</dd>
+    <dt>API</dt><dd>how programs order services from other programs; usually billed</dd>
+    <dt>MCP</dt><dd>the universal adapter connecting tools to Claude</dd>
+    <dt>hallucination</dt><dd>confident, plausible, wrong; the reason we verify</dd>
+    <dt>terminal</dt><dd>the text window where you type commands; the honest interface</dd>
+    <dt>localhost</dt><dd>your site running privately on your machine before deploying</dd>
+    <dt>deploy</dt><dd>publish to the live internet; Vercel does it on every push</dd>
+    <dt>plan mode</dt><dd>Claude Code mode that discusses and plans without touching files</dd>
+  </dl>
+</section>
+
+<div class="cta">
+  <h2>The whole course lives in a repo.</h2>
+  <p>Which is itself the point — by session 2 you'll know exactly what that sentence means. Clone it, open <code>claude</code> inside it, and the repo becomes your tutor.</p>
+  <p><a href="https://github.com/greenbits-dev/ai-immersion">github.com/greenbits-dev/ai-immersion</a></p>
+</div>
+</main>
+</div>
+
+<script>
+  const links=[...document.querySelectorAll('nav li a')];
+  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  const obs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.remove('on')); const l=map.get(e.target.id); if(l)l.classList.add('on'); }});
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('main section').forEach(s=>obs.observe(s));
+</script>
