@@ -2,6 +2,8 @@
 
 Welcome. This repo is the textbook for a hands-on course that takes you from talking to AI in a browser to **building real things with Claude Code** — including a website of your own, live on the internet.
 
+**📖 Prefer a nicely formatted page? The whole course is at [greenbits-dev.github.io/ai-immersion](https://greenbits-dev.github.io/ai-immersion/)** — served straight from this repo (that's the [site/](site/) folder plus GitHub Pages; by session 4 you'll understand exactly how, because your own site will publish the same way).
+
 **No coding experience needed.** You need a laptop, curiosity, and willingness to break things (we'll show you why breaking things is safe here).
 
 ## How to use this repo
