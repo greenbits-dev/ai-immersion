@@ -26,3 +26,4 @@
 2. **Ask Claude itself.** "Explain MCP like I'm new" inside Claude Code is better than most blog posts — it can demo the answer.
 3. **Steal patterns, not code.** When you see someone's workflow (a CLAUDE.md trick, a skill, a checklist), copy the *pattern* into your own projects.
 4. **Re-take the ladder test.** Re-read the competence ladder in [Lesson 1](01-big-picture.md) every few months and honestly re-place yourself.
+5. **Once something runs on its own, check that it still runs.** The first time you schedule a job (a nightly backup, a weekly report), keep a list of everything that is supposed to run. A job that quietly stops leaves no error behind. [Silent When Healthy](https://www.senye.me/principles/silent-when-healthy) explains the habit and links a free checker.
